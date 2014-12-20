@@ -66,6 +66,7 @@ packageHandler.onreadystatechange = function () {
         fup; // Users's package -> one among the list
 
     if (this.readyState !== 4 || this.status !== 200) {
+        log('non-act', 'Not within ACT Broadband');
         return this;
     }
 
