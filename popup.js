@@ -20,7 +20,6 @@ render = function (consumed, fup) {
 onError = function (message) {
     document.body.classList.add("error");
     message = message || this.statusText;
-    console.log(message);
     if (this.status === 0) {
         log('error', "Unable to connect to the Internet");
     } else {
@@ -68,7 +67,6 @@ packageHandler.onreadystatechange = function () {
 
     if (this.readyState !== 4 || this.status !== 200) {
         log('non-act', 'Not within ACT Broadband');
-        console.log(this.readyState);
         return this;
     }
 
