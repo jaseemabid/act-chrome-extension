@@ -18,7 +18,6 @@ render = function (consumed, fup) {
 };
 
 onError = function (message) {
-    //document.getElementByClassName("log").remove();
     document.body.classList.add("error");
     message = message || this.statusText;
     console.log(message);
