@@ -65,8 +65,15 @@ packageHandler.onreadystatechange = function () {
         usage, // Total usage, in GigaBytes
         fup; // Users's package -> one among the list
 
-    if (this.readyState !== 4 || this.status !== 200) {
-        log('non-act', 'Not within ACT Broadband');
+    if (this.readyState !== this.DONE) {
+        log('info', "Fetching remote data");
+        return this;
+    }
+
+    if (this.status !== 200) {
+        // ACT page gives a 500 when outside network. Weird :(
+        log('error', 'Not within ACT Broadband');
+        this.onreadystatechange = null;
         return this;
     }
 
@@ -103,5 +110,4 @@ packageHandler.onreadystatechange = function () {
 
     return render(usage, fup);
 };
-log('info', 'Fetching package info');
 packageHandler.send();
