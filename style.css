@@ -1,7 +1,38 @@
 body {
-    min-width: 200px;
-    overflow-x: hidden;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
     padding: 10px;
+}
+
+div {
+    height: 100%;
+    width: 100%;
+}
+
+p {
+    text-align: center;
+    position: relative;
+    top: 150px;
+}
+
+.hidden {
+    visibility: hidden;
+    display: none;
+}
+
+.loading {
+    background: url('./spinner.gif');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: #344557;
+    background-position: 0px 25px;
+}
+
+#oops {
+    background: url('./oops.svg');
+    background-repeat: no-repeat;
+    background-position: 50% 5%;
 }
 
 #first-row {
@@ -35,36 +66,4 @@ body {
     background-color: #0C97D8;
     color: #fff;
     padding: 10px 0;
-}
-
-#log {
-    display: none;
-}
-
-.loading #first-row,
-.loading #bb-meter {
-    visibility: hidden;
-    display: none;
-}
-
-.loading #log {
-    display: block;
-}
-
-#log span {
-    display: block;
-    width: 300px;
-    font-size: smaller;
-}
-
-#log span.info {
-    color: blue;
-}
-
-#log span.error {
-    color: red;
-}
-
-#log span.success {
-    color: green;
 }

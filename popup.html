@@ -7,19 +7,21 @@
     <script src="ga.js"></script>
   </head>
   <body class="loading">
-    <div id="log">
-      <!-- A list of spans with .success, .error or .info appended here -->
+    <div id="oops" class="hidden">
+      <p>Oops! Something went wrong</p>
     </div>
-    <div id="first-row">
-      <div class="half">
-        <div class="hint">Consumed</div>
-        <div id="consumed"></div>
+    <div id="content" class="hidden">
+      <div id="first-row">
+        <div class="half">
+          <div class="hint">Consumed</div>
+          <div id="consumed"></div>
+        </div>
+        <div class="half">
+          <div class="hint">FUP</div>
+          <div id="fup"></div>
+        </div>
       </div>
-      <div class="half">
-        <div class="hint">FUP</div>
-        <div id="fup"></div>
-      </div>
+      <div id="bb-meter"></div>
     </div>
-    <div id="bb-meter"></div>
   </body>
 </html>

@@ -1,14 +1,11 @@
+/*global console, document, XMLHttpRequest */
+'use strict';
+
 var packageHandler,
     render,
-    onError,
-
-    logCache = [],
-    log;
+    onError;
 
 render = function (consumed, fup) {
-
-    document.body.classList.remove("loading");
-    document.getElementById("log").remove();
     document.getElementById("fup").innerHTML = fup;
     document.getElementById("consumed").innerHTML = consumed;
     document.getElementById("bb-meter").innerHTML =
@@ -17,42 +14,15 @@ render = function (consumed, fup) {
     return this;
 };
 
-onError = function (message) {
-    document.body.classList.add("error");
-    message = message || this.statusText;
-    if (this.status === 0) {
-        log('error', "Unable to connect to the Internet");
-    } else {
-        log('error', message);
-    }
+onError = function () {
+    console.error("Firing onError");
+
+    document.body.classList.remove("loading");
+    document.getElementById("oops").classList.remove("hidden");
+    return this;
 };
 
-log = function (level, message) {
-    level = level || 'info';
-    message = message || ' ';
-
-    // Cache message till DOM is ready
-    logCache.push([level, message]);
-
-    if (document.readyState !== 'complete') {
-        return;
-    }
-
-    var $log = document.getElementById("log"),
-        span;
-
-    logCache.forEach(function (message) {
-        span = document.createElement("span");
-        span.className = message[0];
-        span.innerHTML = message[1];
-
-        $log.appendChild(span);
-    });
-
-    logCache = [];
-};
-
-log('info', 'Starting up');
+console.info('Starting up');
 
 // Find and update user's package.
 packageHandler = new XMLHttpRequest();
@@ -63,21 +33,27 @@ packageHandler.onreadystatechange = function () {
         t,
         match,
         usage, // Total usage, in GigaBytes
-        fup; // Users's package -> one among the list
+        fup, // Users's package -> one among the list
+        oops = document.getElementById("oops");
 
     if (this.readyState !== this.DONE) {
-        log('info', "Fetching remote data");
+        console.info("Fetching remote data");
         return this;
     }
 
+    console.log("Remove .loading");
+    document.body.classList.remove("loading");
+
     if (this.status !== 200) {
         // ACT page gives a 500 when outside network. Weird :(
-        log('error', 'Not within ACT Broadband');
+        console.error('Not within ACT Broadband');
+        oops.classList.remove("hidden");
         this.onreadystatechange = null;
         return this;
     }
 
-    log('success', 'Fetched package info');
+    console.info('success', 'Fetched package info');
+    document.getElementById("content").classList.remove("hidden");
 
     div = document.createElement("div");
     div.innerHTML = this.responseText;
@@ -87,7 +63,7 @@ packageHandler.onreadystatechange = function () {
         .textContent;
 
     if (t === 'Invalid Access') {
-        return log('error', "`Invalid Access` fetching package information");
+        return console.error("`Invalid Access` fetching package information");
     }
 
     // Sample: "59.04 GB (Quota 200.00 GB)"
@@ -104,10 +80,11 @@ packageHandler.onreadystatechange = function () {
         usage = parseFloat(match[1], 10);
         fup = parseFloat(match[2], 10);
     } catch (e) {
-        log('error', "Unable to parse response");
+        console.error("Unable to parse response");
         return 1;
     }
 
     return render(usage, fup);
 };
+
 packageHandler.send();
