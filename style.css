@@ -23,9 +23,8 @@ p {
 .loading {
     background: url('./spinner.gif');
     background-repeat: no-repeat;
-    background-size: 100%;
-    background-color: #344557;
-    background-position: 0px 25px;
+    background-size: 10%;
+    background-position: 50% 50%;
 }
 
 #oops {
