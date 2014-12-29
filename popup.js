@@ -8,7 +8,7 @@ var packageHandler,
 render = function (consumed, fup) {
     document.getElementById("fup").innerHTML = fup;
     document.getElementById("consumed").innerHTML = consumed;
-    document.getElementById("bb-meter").innerHTML =
+    document.querySelector("#bb-meter span").style.width =
         (((fup - consumed) / fup) * 100).toFixed(2) + "%";
 
     return this;
