@@ -9,7 +9,7 @@ render = function (consumed, fup) {
     document.getElementById("fup").innerHTML = fup;
     document.getElementById("consumed").innerHTML = consumed;
     document.querySelector("#bb-meter span").style.width =
-        (((fup - consumed) / fup) * 100).toFixed(2) + "%";
+        (100 * consumed / fup).toFixed(2) + "%";
 
     return this;
 };

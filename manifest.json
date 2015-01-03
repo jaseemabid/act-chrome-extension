@@ -3,7 +3,7 @@
 
 	"name": "ACT Usage",
 	"description": "Shows your ACT Internet usage if you are on a broadband ACT connection in India. Not affiliated with ACT Broadband in any way.",
-	"version": "1.2",
+	"version": "1.3",
 
 	"content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 
